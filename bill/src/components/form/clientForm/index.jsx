@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { GlobalContext } from "../../../context";
 import Styles from "./styles.module.css";
+import axios from "axios";
 
 function ClientFormDetails({
   setShowAccordian,
@@ -23,12 +24,24 @@ function ClientFormDetails({
     });
   }
 
-  function handleOnClick(event) {
+  async function handleOnClick(event) {
     event.preventDefault();
-    console.log("button clicked");
-    setShowAccordian(false);
-    setShowProductAccordian(true);
-    // setShowDetailsAccordian(true);
+
+    try {
+      const response = await axios.post("http://localhost:5000/api/clients", {
+        name: clientDetails.name,
+        address: clientDetails.address,
+        clientGST: clientDetails.clientGST,
+        clientPhone: clientDetails.clientPhone,
+        date: clientDetails.date,
+        invoiceNumber: clientDetails.invoiceNumber,
+      });
+      console.log(response.data.message);
+      setShowAccordian(false);
+      setShowProductAccordian(true);
+    } catch (error) {
+      console.error("Error saving client details:", error.response.data);
+    }
   }
 
   function handleOnEdit(event) {

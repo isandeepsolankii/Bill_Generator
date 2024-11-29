@@ -1,5 +1,7 @@
 import { useContext, useState } from "react";
 import { GlobalContext } from "../../../context";
+import axios from "axios";
+
 import Styles from "./styles.module.css";
 
 function ProductFormDetails() {
@@ -29,38 +31,49 @@ function ProductFormDetails() {
     setEditIndex(index);
   }
 
-  function handleOnClick(event) {
+  async function handleOnClick(event) {
     event.preventDefault();
 
     // Calculate the amount from quantity and rate
     const amount = productDetails.quantity * productDetails.rate;
 
-    if (editIndex !== null) {
-      // Update the existing item in savedProductDetails
-      const updatedDetails = savedProductDetails.map((detail, index) =>
-        index === editIndex ? { ...productDetails, amount } : detail
-      );
-      setSavedProductDetails(updatedDetails);
-      setEditIndex(null); // Reset editIndex after updating
-    } else {
-      // Add a new item to savedProductDetails
-      setSavedProductDetails([
-        ...savedProductDetails,
-        { ...productDetails, amount },
-      ]);
+    try {
+      const response = await axios.post("http://localhost:5000/api/products", {
+        sno: productDetails.sno,
+        particular: productDetails.particular,
+        quantity: productDetails.quantity,
+        rate: productDetails.rate,
+        amount,
+      });
+
+      console.log(response.data.message);
+
+      if (editIndex !== null) {
+        const updatedDetails = savedProductDetails.map((detail, index) =>
+          index === editIndex ? { ...productDetails, amount } : detail
+        );
+        setSavedProductDetails(updatedDetails);
+        setEditIndex(null);
+      } else {
+        setSavedProductDetails([
+          ...savedProductDetails,
+          { ...productDetails, amount },
+        ]);
+      }
+
+      // Reset the form
+      setProductDetails({
+        sno: "",
+        particular: "",
+        quantity: "",
+        rate: "",
+        amount: "",
+      });
+
+      setShowSavedAccordion(true);
+    } catch (error) {
+      console.error("Error saving product details:", error.response.data);
     }
-
-    // Reset the form
-    setProductDetails({
-      sno: "",
-      particular: "",
-      quantity: "",
-      rate: "",
-      amount: "",
-    });
-
-    // Show the saved details accordion
-    setShowSavedAccordion(true);
   }
 
   // Function to truncate the text to a word limit
