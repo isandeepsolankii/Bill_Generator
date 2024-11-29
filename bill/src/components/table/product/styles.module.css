@@ -1,0 +1,29 @@
+/* SimpleTable.module.css */
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.cell {
+  border: 1px solid black;
+  padding: 10px;
+  text-align: left;
+}
+
+.cell-70 {
+  width: 70%;
+}
+
+.cell-30 {
+  width: 30%;
+}
+.cell-100 {
+  width: 100%;
+  border: 1px solid black;
+  padding: 10px;
+  text-align: center;
+}
+.tableText {
+  text-align: center;
+}
