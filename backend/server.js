@@ -14,23 +14,14 @@ app.use(cors()); // Enable Cross-Origin Resource Sharing
 
 // MongoDB connection
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log("Error connecting to MongoDB: ", err));
 
-// Define Schemas
-const clientSchema = new mongoose.Schema({
-  name: String,
-  address: String,
-  clientGST: String,
-  clientPhone: String,
-  date: String,
-  invoiceNumber: String,
-});
+// Enable mongoose debug mode for detailed logs
+mongoose.set("debug", true);
 
+// Define Schemas
 const productSchema = new mongoose.Schema({
   sno: String,
   particular: String,
@@ -39,11 +30,21 @@ const productSchema = new mongoose.Schema({
   amount: Number,
 });
 
+const clientSchema = new mongoose.Schema({
+  name: String,
+  address: String,
+  clientGST: String,
+  clientPhone: String,
+  date: String,
+  invoiceNumber: String,
+  products: [productSchema], // Embed productSchema as an array
+});
+
 // Create Models
 const Client = mongoose.model("Client", clientSchema);
 const Product = mongoose.model("Product", productSchema);
 
-// --- API Endpoints ---
+// --- Client API Endpoints ---
 
 // POST /api/clients - Save client details
 app.post("/api/clients", async (req, res) => {
@@ -57,35 +58,51 @@ app.post("/api/clients", async (req, res) => {
   }
 });
 
-// POST /api/products - Save product details
-app.post("/api/products", async (req, res) => {
+app.post("/api/products/:clientId", async (req, res) => {
   try {
+    const { clientId } = req.params;
     const productData = req.body;
-    const newProduct = new Product(productData);
-    await newProduct.save();
-    res.status(200).json({ message: "Product details saved successfully!" });
+
+    console.log("Received product data:", productData);
+
+    const client = await Client.findById(clientId);
+    if (!client) {
+      console.log("Client not found for ID:", clientId);
+      return res.status(404).json({ message: "Client not found" });
+    }
+
+    client.products.push(productData); // Add product to the client's products array
+    await client.save();
+
+    console.log("Product added to client successfully:", client);
+    res.status(200).json({ message: "Product added to client successfully!" });
   } catch (error) {
-    res.status(500).json({ message: "Error saving product data", error });
+    console.error("Error adding product to client:", error);
+    res.status(500).json({ message: "Error adding product to client", error });
   }
 });
 
-// GET /api/clients - Fetch all clients
+// GET /api/clients - Fetch all clients with their products
 app.get("/api/clients", async (req, res) => {
   try {
-    const clients = await Client.find();
+    const clients = await Client.find(); // Fetch all clients along with their products
     res.status(200).json(clients);
   } catch (error) {
     res.status(500).json({ message: "Error fetching clients", error });
   }
 });
 
-// GET /api/products - Fetch all products
-app.get("/api/products", async (req, res) => {
+// DELETE /api/clients/:clientId - Delete a client by ID
+app.delete("/api/clients/:clientId", async (req, res) => {
   try {
-    const products = await Product.find();
-    res.status(200).json(products);
+    const { clientId } = req.params;
+    const deletedClient = await Client.findByIdAndDelete(clientId);
+    if (!deletedClient) {
+      return res.status(404).json({ message: "Client not found" });
+    }
+    res.status(200).json({ message: "Client deleted successfully!" });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching products", error });
+    res.status(500).json({ message: "Error deleting client", error });
   }
 });
 

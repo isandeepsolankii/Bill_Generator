@@ -1,0 +1,70 @@
+/* Sidebar styles */
+.sidebar {
+  position: fixed;
+  top: 60px; /* Place below Navbar */
+  left: 0;
+  width: 250px; /* Fixed width */
+  height: calc(100vh - 60px); /* Full height minus Navbar */
+  background-color: #85a98f; /* Light background */
+  padding: 20px; /* Inner padding for content */
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1); /* Subtle shadow on the right */
+  z-index: 999; /* Ensure it stays below Navbar but above content */
+  transition: transform 0.3s ease; /* Smooth transition for hiding/showing */
+}
+
+/* Sidebar hidden on smaller screens */
+.sidebar.hidden {
+  transform: translateX(-100%); /* Move sidebar off-screen */
+}
+
+/* Heading styling */
+.heading {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px; /* Space below heading */
+  color: #343a40; /* Dark gray text */
+}
+
+/* Menu list styling */
+.menu {
+  list-style: none; /* Remove bullets */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+}
+
+.menu li {
+  font-size: 18px; /* Font size for menu items */
+  color: #495057; /* Gray text */
+  margin-bottom: 15px; /* Space between menu items */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.menu li:hover {
+  color: #007bff; /* Blue text on hover */
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  /* Hide sidebar on mobile and tablet screens */
+  .sidebar {
+    transform: translateX(-100%); /* Sidebar is off-screen by default */
+  }
+
+  .sidebar.hidden {
+    transform: translateX(
+      0
+    ); /* Sidebar slides in when 'hidden' class is removed */
+  }
+
+  /* Adjust layout for main content when sidebar is hidden */
+  .content {
+    margin-left: 0; /* No space for sidebar */
+  }
+}
+
+@media (max-width: 480px) {
+  /* Optionally, hide the sidebar entirely on very small screens */
+  .sidebar {
+    display: none; /* Completely hide sidebar */
+  }
+}

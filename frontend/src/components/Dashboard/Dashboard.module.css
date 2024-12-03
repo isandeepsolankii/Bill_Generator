@@ -1,0 +1,104 @@
+/* Main dashboard container */
+.dashboard {
+  display: flex;
+  height: 100vh; /* Full height of the viewport */
+  margin-left: 65px;
+}
+
+/* Navbar styles (fixed at the top) */
+.content {
+  margin-top: 60px; /* Space for Navbar */
+  margin-left: 250px; /* Space for Sidebar */
+  padding: 20px;
+  height: calc(100vh - 60px); /* Full height minus Navbar */
+  overflow-y: auto; /* Enable scrolling for content */
+  transition: margin-left 0.3s ease; /* Smooth transition for content */
+  flex-grow: 1; /* Allow content to grow and fill available space */
+}
+
+.dashboard .sidebar.hidden + .content {
+  margin-left: 0; /* Move content to the left when sidebar is hidden */
+}
+
+/* Card grid styling */
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Default 4 cards per row */
+  gap: 40px; /* Gap between cards */
+}
+
+.card {
+  background-color: #d3f1df;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  text-align: center;
+  width: 250px;
+  height: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+/* Add styles for card title, subtitle, price, and button */
+.cardTitle {
+  font-size: 20px;
+  font-weight: 500;
+  color: #323232;
+}
+
+.cardSubtitle {
+  font-size: 14px;
+  font-weight: 400;
+  color: #666;
+}
+
+.cardPrice {
+  font-size: 20px;
+  font-weight: 500;
+  color: #323232;
+}
+
+.cardBtn {
+  background: #fff;
+  border: 2px solid #323232;
+  border-radius: 5px;
+  padding: 0 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.cardBtn:hover {
+  border-color: #2d8cf0;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 1200px) {
+  .cardGrid {
+    grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+  }
+}
+
+@media (max-width: 768px) {
+  .cardGrid {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+  }
+  .content {
+    margin-left: 0px; /* Space for Sidebar */
+  }
+  .dashboard {
+    margin-left: 0px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cardGrid {
+    grid-template-columns: 1fr; /* 1 card per row */
+  }
+
+  .card {
+    width: 100%; /* Full width for small screens */
+    height: auto; /* Allow height to adjust based on content */
+  }
+}

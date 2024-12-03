@@ -1,0 +1,78 @@
+/* From Uiverse.io by Pradeepsaranbishnoi */
+:focus {
+  outline: 0;
+  border-color: #85a98f;
+  box-shadow: 0 0 0 4px #b5c9fc;
+}
+
+.mydict div {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.mydict input[type="radio"] {
+  clip: rect(0 0 0 0);
+  clip-path: inset(100%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.mydict input[type="radio"]:checked + span {
+  box-shadow: 0 0 0 0.0625em #525b44;
+  background-color: #dee7ff;
+  z-index: 1;
+  color: #525b44;
+}
+
+label span {
+  display: block;
+  cursor: pointer;
+  background-color: #fff;
+  padding: 0.375em 0.75em;
+  position: relative;
+  margin-left: 0.0625em;
+  box-shadow: 0 0 0 0.0625em #b5bfd9;
+  letter-spacing: 0.05em;
+  color: #3e4963;
+  text-align: center;
+  transition: background-color 0.5s ease;
+}
+
+label:first-child span {
+  border-radius: 0.375em 0 0 0.375em;
+}
+
+label:last-child span {
+  border-radius: 0 0.375em 0.375em 0;
+}
+
+.container {
+  display: flex;
+  align-items: center; /* Align items vertically */
+  justify-content: space-between; /* Add space between items if needed */
+  gap: 1rem; /* Add space between the dropdown and the radio buttons */
+  margin: 50px 0px;
+}
+
+.dropdown {
+  flex-shrink: 0; /* Prevents dropdown from shrinking */
+  width: 800px;
+}
+
+.mydict {
+  flex-grow: 1; /* Allows .mydict to take remaining space if needed */
+}
+
+@media (max-width: 480px) {
+  .container {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: stretch; /* Stretch items to full width */
+  }
+
+  .dropdown {
+    margin-bottom: 1rem; /* Add spacing below the dropdown */
+  }
+}

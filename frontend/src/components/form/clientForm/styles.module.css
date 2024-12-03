@@ -1,0 +1,98 @@
+/* ClientFormDetails.module.css */
+
+.accordionContainer {
+  background-color: #7fd6c1;
+  font-family: "Arial, sans-serif"; /* Update font family */
+  font-size: 16px; /* Update font size */
+  transition: background-color 0.3s ease;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 30px;
+}
+
+.accordionOpen {
+  background-color: #ffc107;
+}
+
+.accordionHeading {
+  font-family: "Arial, sans-serif";
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.accordionBody {
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #fff;
+  margin-top: 10px;
+}
+
+.accordionBox {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.buttonStyle {
+  margin: 5px;
+}
+
+/* checkbox  */
+.radioInput {
+  margin: 30px;
+  display: flex;
+  gap: 20px;
+}
+
+.radioB {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.radioBInput {
+  display: none;
+}
+
+.radioBLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.radioBCustom {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  margin-right: 10px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.radioBCustomFill {
+  display: block;
+  width: 12px;
+  height: 12px;
+  background-color: #007bff;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.3s ease;
+}
+
+.radioBInput:checked + .radioBLabel .radioBCustomFill {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.radioBText {
+  font-size: 16px;
+  color: #333;
+}

@@ -1,0 +1,52 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px; /* Set height for Navbar */
+  background-color: #85a98f;
+  display: flex;
+  align-items: center;
+  padding: 0 20px; /* Add padding for spacing */
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 0px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 0px 3px 0px;
+  z-index: 1000; /* Ensure it stays above all other elements */
+}
+
+/* Add margin to left and right */
+.navContainer {
+  margin-left: 20px; /* Left margin */
+  margin-right: 20px; /* Right margin */
+}
+
+/* Logo styling */
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Center menu styling */
+.menu {
+  display: flex;
+  gap: 20px; /* Add space between menu items */
+}
+
+/* Common menu item styling */
+.navLink {
+  font-size: 18px; /* Increase font size */
+  color: #000; /* Black text */
+}
+
+.navLink:hover {
+  color: #525b44; /* Blue on hover */
+}
+
+/* Logout button styling */
+.logout {
+  font-size: 18px; /* Match menu font size */
+  color: #dc3545; /* Red text */
+}
+
+.logout:hover {
+  color: #bd2130; /* Darker red on hover */
+}
